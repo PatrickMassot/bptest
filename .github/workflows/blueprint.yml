@@ -74,6 +74,7 @@ jobs:
             cp -r blueprint/web docs/blueprint
 
       - name: Check declarations
+        run: |
             export PATH=$PATH:/home/runner/.elan/bin/
             leanblueprint checkdecls
 
