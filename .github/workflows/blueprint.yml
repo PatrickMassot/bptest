@@ -51,16 +51,20 @@ jobs:
         with:
           docker_image: ghcr.io/xu-cheng/texlive-full:20231201
           run: |
-            export PIP_BREAK_SYSTEM_PACKAGES=1
             apk update
             apk add --update make py3-pip git
             apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev
             git config --global --add safe.directory $GITHUB_WORKSPACE
             git config --global --add safe.directory `pwd`
-            python3 -m pip install --upgrade pip requests wheel
-            python3 -m pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
-            python3 -m pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
+            python3 -m venv env
+            source env/bin/activate
+            echo `which pip`
+            pip install --upgrade pip requests wheel
+            pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
+            pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
             export PATH=$PATH:.elan/bin 
+            echo $PATH
+            echo `which lake`
             leanblueprint all
 
       - name: Copy documentation to `docs/docs`
