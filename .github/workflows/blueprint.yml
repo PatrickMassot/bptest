@@ -69,6 +69,7 @@ jobs:
             echo `which pip`
             pip install --upgrade pip requests wheel
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
+            pip install git+https://github.com/plastex/plastex.git@debug
             pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
             export PATH=$PATH:/home/runner/.elan/bin 
             echo "PATH:"
@@ -87,6 +88,9 @@ jobs:
 
       - name: Copy documentation to `docs/docs`
         run: |
+          echo "pwd:"
+          pwd
+          echo "ls .lake/build"
           ls .lake/build
           mv .lake/build/doc docs/docs
 
