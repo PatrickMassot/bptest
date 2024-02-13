@@ -68,7 +68,7 @@ jobs:
             pip install --upgrade pip requests wheel
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
             pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
-            export PATH=$PATH:.elan/bin 
+            export PATH=$PATH:/home/runner/.elan/bin 
             echo "PATH:"
             echo $PATH
             echo "SHELL:"
