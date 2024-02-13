@@ -69,6 +69,7 @@ jobs:
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
             pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
             export PATH=$PATH:/home/runner/.elan/bin 
+            ls /home/runner/.elan/bin
             leanblueprint all
             cp -r blueprint/web docs/blueprint
             cp blueprint/print/print.pdf docs/blueprint.pdf
