@@ -59,8 +59,7 @@ jobs:
           docker_image: ghcr.io/xu-cheng/texlive-full:20231201
           run: |
             apk update
-            apk add --update make py3-pip git
-            apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev
+            apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev pdf2svg
             git config --global --add safe.directory $GITHUB_WORKSPACE
             git config --global --add safe.directory `pwd`
             python3 -m venv env
@@ -80,6 +79,9 @@ jobs:
 
       - name: Copy documentation to `docs/docs`
         run: |
+          ls -ld .lake
+          ls -ld .lake/build
+          ls -ld .lake/build/doc
           mv .lake/build/doc docs/docs
 
       - name: Upload docs & blueprint artifact
