@@ -52,41 +52,39 @@ jobs:
         run: |
           ~/.elan/bin/lake -Kenv=dev build Bptest:docs
           ls .lake/build
-
-      - name: Build blueprint and copy to `docs/blueprint`
+      
+      - name: Build blueprint pdf 
         uses: xu-cheng/texlive-action@v2
         with:
           docker_image: ghcr.io/xu-cheng/texlive-full:20231201
           run: |
-            apk update
-            apk add --update make py3-pip git
-            apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev
-            git config --global --add safe.directory $GITHUB_WORKSPACE
-            git config --global --add safe.directory `pwd`
-            python3 -m venv env
-            source env/bin/activate
-            pip install --upgrade pip requests wheel
-            pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
-            pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
-            curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:4.5.0
-            echo "Will build"
-            ls
-            ~/.elan/bin/lake -Kenv=dev build Bptest 2> log || cat -n log
-            cat -n log
-            REPORT="$(cat log)"
-            echo "$REPORT"
-            REPORT="${REPORT//'%'/'%25'}"
-            REPORT="${REPORT//$'\n'/'%0A'}"
-            REPORT="${REPORT//$'\r'/'%0D'}"
-            echo "$REPORT"
-            echo "Built"
-            leanblueprint pdf
-            leanblueprint web
-            echo "Will check"
-            ~/.elan/bin/lake -Kenv=dev checkdecls blueprint/lean_decls
-            echo "Checked"
-            cp -r blueprint/web docs/blueprint
-            cp blueprint/print/print.pdf docs/blueprint.pdf
+            cd blueprint
+            latexmk
+
+      - name: Build blueprint and copy to `docs/blueprint`
+        run: |
+          ls blueprint/print
+          apk update
+          apk add --update make py3-pip git
+          apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config --global --add safe.directory `pwd`
+          python3 -m venv env
+          source env/bin/activate
+          pip install --upgrade pip requests wheel
+          pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
+          pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:4.5.0
+          echo "Will build"
+          ~/.elan/bin/lake build Bptest 
+          echo "Built"
+          leanblueprint pdf
+          leanblueprint web
+          echo "Will check"
+          ~/.elan/bin/lake checkdecls blueprint/lean_decls
+          echo "Checked"
+          cp -r blueprint/web docs/blueprint
+          cp blueprint/print/print.pdf docs/blueprint.pdf
 
       - name: Copy documentation to `docs/docs`
         run: |
