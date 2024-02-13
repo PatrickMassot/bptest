@@ -94,6 +94,11 @@ jobs:
           mkdir -p docs
           mv .lake/build/doc docs/docs
 
+      - name: Upload docs & blueprint artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs/
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
