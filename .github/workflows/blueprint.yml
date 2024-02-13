@@ -82,6 +82,8 @@ jobs:
           ls -ld .lake
           ls -ld .lake/build
           ls -ld .lake/build/doc
+          ls -ld docs
+          ls -l docs
           mv .lake/build/doc docs/docs
 
       - name: Upload docs & blueprint artifact
