@@ -51,7 +51,8 @@ jobs:
       - name: Build documentation
         run: |
           ~/.elan/bin/lake -Kenv=dev build Bptest:docs
-          tree
+          ls .lake
+          tree .lake/build
 
       - name: Build blueprint and copy to `docs/blueprint`
         uses: xu-cheng/texlive-action@v2
@@ -77,13 +78,13 @@ jobs:
             echo $SHELL
             echo "lake:"
             echo `which lake`
-            tree /home/runner/work/bptest/env/lib/python/
+            tree /home/runner/work/bptest/bptest/env/lib/python/
             echo "leanblueprint:"
             echo `which leanblueprint`
             echo "In env:"
-            tree /home/runner/work/bptest/env/lib/python*/site*/lean*
+            tree /home/runner/work/bptest/bptest/env/lib/python*/site*/lean*
             echo "In blueprint:"
-            tree /home/runner/work/bptest/blueprint
+            tree /home/runner/work/bptest/bptest/blueprint
             leanblueprint web
 
       - name: Copy documentation to `docs/docs`
