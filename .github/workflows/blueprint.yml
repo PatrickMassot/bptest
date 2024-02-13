@@ -32,8 +32,6 @@ jobs:
       - name: Build project
         run: |
           ~/.elan/bin/lake -Kenv=dev build Bptest
-          tree
-          echo `tree`
 
       - name: Cache mathlib docs
         uses: actions/cache@v3
@@ -51,7 +49,9 @@ jobs:
             MathlibDoc-
 
       - name: Build documentation
-        run: ~/.elan/bin/lake -Kenv=dev build Bptest:docs
+        run: |
+          ~/.elan/bin/lake -Kenv=dev build Bptest:docs
+          tree
 
       - name: Build blueprint and copy to `docs/blueprint`
         uses: xu-cheng/texlive-action@v2
@@ -77,9 +77,13 @@ jobs:
             echo $SHELL
             echo "lake:"
             echo `which lake`
-            tree /home/runner/work/bptest/bptest/env/lib/python/
+            tree /home/runner/work/bptest/env/lib/python/
             echo "leanblueprint:"
             echo `which leanblueprint`
+            echo "In env:"
+            tree /home/runner/work/bptest/env/lib/python*/site*/lean*
+            echo "In blueprint:"
+            tree /home/runner/work/bptest/blueprint
             leanblueprint web
 
       - name: Copy documentation to `docs/docs`
