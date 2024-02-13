@@ -63,7 +63,7 @@ jobs:
 
       - name: Build blueprint and copy to `docs/blueprint`
         run: |
-          apt install graphviz libgraphviz-dev
+          sudo apt install graphviz libgraphviz-dev
           git config --global --add safe.directory $GITHUB_WORKSPACE
           git config --global --add safe.directory `pwd`
           python3 -m venv env
