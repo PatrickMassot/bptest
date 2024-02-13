@@ -92,6 +92,7 @@ jobs:
           pwd
           echo "ls .lake/build"
           ls .lake/build
+          mkdir -p docs
           mv .lake/build/doc docs/docs
 
       - name: Upload docs & blueprint artifact
