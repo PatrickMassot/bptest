@@ -60,33 +60,21 @@ jobs:
           run: |
             cd blueprint/src
             latexmk
-            cd ../..
-            tree blueprint
 
       - name: Build blueprint and copy to `docs/blueprint`
         run: |
-          tree blueprint
-          apk update
-          apk add --update make py3-pip git
-          apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev
+          apt install graphviz libgraphviz-dev
           git config --global --add safe.directory $GITHUB_WORKSPACE
           git config --global --add safe.directory `pwd`
           python3 -m venv env
           source env/bin/activate
-          pip install --upgrade pip requests wheel
-          pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
           pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
-          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:4.5.0
-          echo "Will build"
-          ~/.elan/bin/lake build Bptest 
-          echo "Built"
-          leanblueprint pdf
           leanblueprint web
           echo "Will check"
           ~/.elan/bin/lake checkdecls blueprint/lean_decls
           echo "Checked"
           cp -r blueprint/web docs/blueprint
-          cp blueprint/print/print.pdf docs/blueprint.pdf
+          cp blueprint/src/print.pdf docs/blueprint.pdf
 
       - name: Copy documentation to `docs/docs`
         run: |
