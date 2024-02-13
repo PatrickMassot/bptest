@@ -84,6 +84,9 @@ jobs:
           ls -ld .lake/build/doc
           ls -ld docs
           ls -l docs
+          sudo chown -R runner docs
+          ls -ld docs
+          ls -l docs
           mv .lake/build/doc docs/docs
 
       - name: Upload docs & blueprint artifact
