@@ -60,10 +60,12 @@ jobs:
           run: |
             cd blueprint/src
             latexmk
+            cd ../..
+            tree blueprint
 
       - name: Build blueprint and copy to `docs/blueprint`
         run: |
-          ls blueprint/print
+          tree blueprint
           apk update
           apk add --update make py3-pip git
           apk add --update make py3-pip git pkgconfig graphviz graphviz-dev gcc musl-dev
