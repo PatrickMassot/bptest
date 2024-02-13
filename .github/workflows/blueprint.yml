@@ -77,6 +77,7 @@ jobs:
       - name: Check declarations
         run: |
             export PATH=$PATH:/home/runner/.elan/bin/
+            source env/bin/activate
             leanblueprint checkdecls
 
       - name: Copy documentation to `docs/docs`
