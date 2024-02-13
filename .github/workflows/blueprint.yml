@@ -69,6 +69,7 @@ jobs:
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
             pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
             leanblueprint pdf
+            mkdir docs
             cp blueprint/print/print.pdf docs/blueprint.pdf
             leanblueprint web
             cp -r blueprint/web docs/blueprint
@@ -80,7 +81,6 @@ jobs:
 
       - name: Copy documentation to `docs/docs`
         run: |
-          mkdir -p docs
           mv .lake/build/doc docs/docs
 
       - name: Upload docs & blueprint artifact
