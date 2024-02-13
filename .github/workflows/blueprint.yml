@@ -68,6 +68,7 @@ jobs:
             pip install --upgrade pip requests wheel
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
             pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
+            curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:4.5.0
             echo "Will build"
             ls
             ~/.elan/bin/lake -Kenv=dev build Bptest 2> log || cat -n log
