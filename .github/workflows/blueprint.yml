@@ -30,7 +30,10 @@ jobs:
         run: ~/.elan/bin/lake -Kenv=dev exe cache get || true
 
       - name: Build project
-        run: ~/.elan/bin/lake -Kenv=dev build Bptest
+        run: |
+          ~/.elan/bin/lake -Kenv=dev build Bptest
+          tree
+          echo `tree`
 
       - name: Cache mathlib docs
         uses: actions/cache@v3
@@ -52,9 +55,9 @@ jobs:
 
       - name: Build blueprint and copy to `docs/blueprint`
         uses: xu-cheng/texlive-action@v2
+        shell: bash
         with:
           docker_image: ghcr.io/xu-cheng/texlive-full:20231201
-          shell: bash
           run: |
             apk update
             apk add --update make py3-pip git
@@ -75,6 +78,7 @@ jobs:
             echo $SHELL
             echo "lake:"
             echo `which lake`
+            tree /home/runner/work/bptest/bptest/env/lib/python/
             echo "leanblueprint:"
             echo `which leanblueprint`
             leanblueprint web
