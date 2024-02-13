@@ -70,7 +70,7 @@ jobs:
             pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
             echo "Will build"
             ls
-            ~/.elan/bin/lake -Kenv=dev build Bptest
+            ~/.elan/bin/lake -Kenv=dev build Bptest 2> log || cat log
             echo "Built"
             leanblueprint pdf
             leanblueprint web
