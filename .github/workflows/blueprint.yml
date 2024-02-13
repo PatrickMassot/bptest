@@ -63,9 +63,13 @@ jobs:
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
             pip install git+https://github.com/PatrickMassot/leanblueprint.git@client
             export PATH=$PATH:.elan/bin 
+            echo "PATH:"
             echo $PATH
+            echo "SHELL:"
+            echo $SHELL
+            echo "lake:"
             echo `which lake`
-            leanblueprint all
+            leanblueprint web
 
       - name: Copy documentation to `docs/docs`
         run: |
