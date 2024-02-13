@@ -9,6 +9,10 @@ permissions:
   pages: write
   id-token: write
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build_project:
     runs-on: ubuntu-latest
@@ -59,6 +63,7 @@ jobs:
             git config --global --add safe.directory `pwd`
             python3 -m venv env
             source env/bin/activate
+            echo "pip:"
             echo `which pip`
             pip install --upgrade pip requests wheel
             pip install pygraphviz --global-option=build_ext --global-option="-L/usr/lib/graphviz/" --global-option="-R/usr/lib/graphviz/"
@@ -70,6 +75,8 @@ jobs:
             echo $SHELL
             echo "lake:"
             echo `which lake`
+            echo "leanblueprint:"
+            echo `which leanblueprint`
             leanblueprint web
 
       - name: Copy documentation to `docs/docs`
