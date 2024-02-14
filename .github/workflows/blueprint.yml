@@ -26,8 +26,7 @@ jobs:
         run: ~/.elan/bin/lake -Kenv=dev exe cache get || true
 
       - name: Build project
-        run: |
-          ~/.elan/bin/lake -Kenv=dev build Bptest
+        run: ~/.elan/bin/lake -Kenv=dev build Bptest
 
       - name: Cache mathlib docs
         uses: actions/cache@v3
@@ -45,8 +44,7 @@ jobs:
             MathlibDoc-
 
       - name: Build documentation
-        run: |
-          ~/.elan/bin/lake -Kenv=dev build Bptest:docs
+        run: ~/.elan/bin/lake -Kenv=dev build Bptest:docs
 
       - name: Build blueprint and copy to `docs/blueprint`
         uses: xu-cheng/texlive-action@v2
@@ -85,3 +83,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+
+      - name: Make sure the cache works
+        run: |
+          mv docs/docs .lake/build/doc
